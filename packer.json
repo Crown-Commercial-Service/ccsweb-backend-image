@@ -30,7 +30,19 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "httpd.conf",
+      "source": "./files/awscli.conf",
+      "destination": "~/awscli.conf",
+      "direction": "upload"
+    },
+    {
+      "type": "file",
+      "source": "./files/awslogs.conf",
+      "destination": "~/awslogs.conf",
+      "direction": "upload"
+    },
+    {
+      "type": "file",
+      "source": "./files/httpd.conf",
       "destination": "~/httpd.conf",
       "direction": "upload"
     },
