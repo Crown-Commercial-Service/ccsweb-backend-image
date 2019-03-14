@@ -5,6 +5,7 @@ set -e
 
 # Update system packages
 sudo yum update -y
+sudo yum -y install git
 
 # Add repos required for PHP 7.2
 sudo yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
@@ -26,6 +27,20 @@ sudo yum -y install \
     php72u-bcmath \
     php72u-soap \
     php72u-json
+
+# Install WP CLI
+sudo curl -s -o wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+sudo chmod +x wp
+sudo mv -f wp /usr/local/bin/
+
+# Install Cavalcade runner
+# NOTE: service started/stopped by codedeploy deployment
+cd /usr/local/bin
+sudo git clone https://github.com/humanmade/Cavalcade-Runner.git
+sudo rm -rf /usr/local/bin/Cavalcade-Runner/.git
+sudo ln -s /usr/local/bin/Cavalcade-Runner/bin/cavalcade /usr/local/bin/cavalcade
+sudo chown root:root ~ec2-user/cavalcaderunner.service
+sudo mv -f ~ec2-user/cavalcaderunner.service /etc/systemd/system/cavalcaderunner.service
 
 # Apply custom apache config
 sudo mv -f ~ec2-user/httpd.conf /etc/httpd/conf/httpd.conf

@@ -1,0 +1,13 @@
+[Unit]
+Description=CavalcadeRunner
+
+[Service]
+TimeoutStartSec=0
+TimeoutStopSec=600
+Restart=always
+WorkingDirectory=/
+User=apache
+ExecStart=/usr/local/bin/cavalcade /var/www/public
+
+[Install]
+WantedBy=multi-user.target
