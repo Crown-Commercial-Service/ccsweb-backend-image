@@ -42,6 +42,17 @@ sudo ln -s /usr/local/bin/Cavalcade-Runner/bin/cavalcade /usr/local/bin/cavalcad
 sudo chown root:root ~ec2-user/cavalcaderunner.service
 sudo mv -f ~ec2-user/cavalcaderunner.service /etc/systemd/system/cavalcaderunner.service
 
+# Additional logrotate config
+sudo chown root:root \
+    ~ec2-user/applogs
+
+sudo chmod 644 \
+    ~ec2-user/applogs
+
+sudo mv -f \
+    ~ec2-user/applogs \
+    /etc/logrotate.d/
+
 # Apply custom apache config
 sudo mv -f ~ec2-user/httpd.conf /etc/httpd/conf/httpd.conf
 
